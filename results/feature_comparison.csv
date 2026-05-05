@@ -1,0 +1,8 @@
+Property,ULB (2013),BAF (2022),Synthetic
+Feature Types,Numerical,Mixed,Mixed
+Anonymised (PCA),Yes (V1-V28),No,No
+Interpretable Features,Amount only,"income, age, credit_risk_score, velocity, etc.","amount, scores"
+Temporal Feature,Time (seconds),month (0-7),timestamp
+Categorical Features,None,"payment_type, employment, housing, source, device_os","transaction_type, merchant, location, device, payment_channel"
+Fraud Label,Class,fraud_bool,is_fraud
+DOI Available,Yes,Yes,No

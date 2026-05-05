@@ -1,0 +1,51 @@
+{
+  "seed": 42,
+  "num_rounds": 10,
+  "test_size": 0.2,
+  "val_frac": 0.5,
+  "ga_params": {
+    "xgb_n_estimators": 300,
+    "xgb_max_depth": 5,
+    "xgb_learning_rate": 0.20278092176694895,
+    "xgb_subsample": 0.9533490553166496,
+    "rf_n_estimators": 282,
+    "rf_max_depth": 27
+  },
+  "ensemble_weights": {
+    "xgb": 0.5,
+    "rf": 0.5
+  },
+  "per_client": {
+    "ulb": {
+      "n_train": 227845,
+      "n_test": 56962,
+      "n_train_pos": 394,
+      "n_train_neg": 227451,
+      "scale_pos_weight": 577.2868,
+      "best_round": 8,
+      "best_round_auprc_at_05": 0.8735,
+      "t_star": 0.17
+    },
+    "baf": {
+      "n_train": 800000,
+      "n_test": 200000,
+      "n_train_pos": 8823,
+      "n_train_neg": 791177,
+      "scale_pos_weight": 89.6721,
+      "best_round": 1,
+      "best_round_auprc_at_05": 0.134,
+      "t_star": 0.55
+    },
+    "synthetic": {
+      "n_train": 399999,
+      "n_test": 100000,
+      "n_train_pos": 14364,
+      "n_train_neg": 385635,
+      "scale_pos_weight": 26.8473,
+      "best_round": 5,
+      "best_round_auprc_at_05": 0.0451,
+      "t_star": 0.14
+    }
+  },
+  "notes": "See docs/fraudx_ai_methodology_notes.md."
+}

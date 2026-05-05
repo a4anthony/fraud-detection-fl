@@ -1,0 +1,8 @@
+Regulation,Requirement,System Feature,Compliance Status
+GDPR Article 22,Right to explanation for automated decisions,SHAP explanations for each prediction,Addressed
+GDPR Article 5,Data minimization principle,Federated Learning — no raw data exchange,Addressed
+EU AI Act (2024),Transparency for high-risk AI systems,SHAP global/local explanations + model documentation,Addressed
+EU AI Act (2024),Human oversight capability,SHAP waterfall/force plots for analyst review,Addressed
+PCI-DSS v4.0,Protect cardholder data,FL keeps data at source; PCA-anonymized features (ULB),Addressed
+Fair Lending (ECOA),Non-discriminatory decision-making,SHAP auditing for feature bias; no demographic features used,Partially Addressed
+Colorado AI Act (2026),Impact assessment for high-risk AI,Ablation study + false positive analysis,Addressed

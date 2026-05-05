@@ -1,0 +1,7 @@
+Dataset,Variant,ScalePosWeight,OptimalThreshold,AUPRC,F1_at_0.5,Precision_at_0.5,Recall_at_0.5,F1_at_optimal,Precision_at_optimal,Recall_at_optimal,FPR_at_optimal,ROC_AUC
+ULB,unweighted,,0.61,0.8921,0.8317,0.8077,0.8571,0.8485,0.84,0.8571,0.0003,0.9779
+ULB,weighted,580.24,0.84,0.8785,0.5176,0.3636,0.898,0.8421,0.8696,0.8163,0.0002,0.9804
+BAF,unweighted,,0.21,0.1556,0.1378,0.3966,0.0834,0.2232,0.1724,0.3164,0.0169,0.8824
+BAF,weighted,89.66,0.6,0.128,0.1663,0.0982,0.5413,0.2055,0.1528,0.3137,0.0194,0.8754
+Synthetic,unweighted,,0.09,0.0452,0.0,0.0,0.0,0.0843,0.0445,0.8174,0.6545,0.6
+Synthetic,weighted,26.85,0.13,0.0451,0.0804,0.0454,0.353,0.0837,0.0437,0.9939,0.8101,0.5997

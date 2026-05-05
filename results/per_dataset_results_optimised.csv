@@ -1,0 +1,4 @@
+Dataset,EvalSize,FraudRate_pct,OptimalThreshold,AUPRC,F1_at_optimal,Precision_at_optimal,Recall_at_optimal,ROC_AUC,FPR_at_optimal,F1_at_0.5,Precision_at_0.5,Recall_at_0.5
+ULB,28481,0.172,0.61,0.8921,0.8485,0.84,0.8571,0.9779,0.0003,0.8317,0.8077,0.8571
+BAF,100000,1.103,0.21,0.1556,0.2232,0.1724,0.3164,0.8824,0.0169,0.1378,0.3966,0.0834
+Synthetic,50000,3.592,0.09,0.0452,0.0843,0.0445,0.8174,0.6,0.6545,0.0,0.0,0.0

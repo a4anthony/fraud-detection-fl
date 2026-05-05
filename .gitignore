@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+.jupyter/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Datasets (raw + intermediate, never push)
+data/raw/
+data/processed/
+data/federated/
+*.parquet
+*.feather
+*.zip
+
+# Trained model artefacts (binary, not for the repo)
+*.joblib
+*.pkl
+*.pickle
+*.h5
+*.pt
+*.pth
+outputs/models/
+
+# Locally regenerated outputs (the curated copies live in /results and /figures)
+outputs/figures/
+outputs/tables/
+paper_v2_outputs/
+
+# Logs
+*.log
+logs/

@@ -1,0 +1,10 @@
+Configuration,Threshold,ScalePosWeight,AUPRC,ROC_AUC,F1,Precision,Recall,FPR,TP,FP,FN,TN,Source
+centralised_no_smote_w_2_0,0.5,2.0,0.8987,0.9857,0.8817,0.9318,0.8367,0.000106,41.0,3.0,8.0,28429.0,"literal match to FraudX AI §4.1 (class weight {0:1.0, 1:2.0})"
+centralised_no_smote_w_2_0,t*=0.39,2.0,0.8987,0.9857,0.875,0.8936,0.8571,0.000176,42.0,5.0,7.0,28427.0,"literal match to FraudX AI §4.1 (class weight {0:1.0, 1:2.0})"
+centralised_no_smote_w_580,0.5,577.2868020304569,0.8756,0.9838,0.8454,0.8542,0.8367,0.000246,41.0,7.0,8.0,28425.0,sensitivity check at natural neg/pos ratio (577.29); NOT a match to FraudX AI
+centralised_no_smote_w_580,t*=0.31,577.2868020304569,0.8756,0.9838,0.8485,0.84,0.8571,0.000281,42.0,8.0,7.0,28424.0,sensitivity check at natural neg/pos ratio (577.29); NOT a match to FraudX AI
+federated_smote_full_test,0.5,,0.8734,0.9778,0.8259,0.8058,0.8469,0.0004,,,,,"paper_v2_outputs/per_dataset_results.csv row 2 (Dataset=ULB) — full 56,962-row test set"
+federated_smote_full_test,t*=0.61,,0.8921,0.9779,0.8485,0.84,0.8571,0.0003,,,,,"paper_v2_outputs/per_dataset_results_optimised.csv row 2 (Dataset=ULB) — full 56,962-row test set"
+federated_smote_eval_half,0.5,,0.8921,0.9779,0.8317,0.8077,0.8571,,,,,,"paper_v2_outputs/weighted_vs_unweighted.csv row 2 (Variant=unweighted) — eval half (28,481 rows)"
+federated_smote_eval_half,t*=0.61,,0.8921,0.9779,0.8485,0.84,0.8571,0.0003,,,,,"paper_v2_outputs/weighted_vs_unweighted.csv row 2 (Variant=unweighted) — eval half (28,481 rows)"
+fraudx_ai_reported,paper-tuned (PR-curve),2.0,0.97,,0.97,1.0,0.95,0.0,93.0,0.0,5.0,56864.0,"Baisholan et al. (2025) Computers 14(4) 120, Table 2 + Table 3"

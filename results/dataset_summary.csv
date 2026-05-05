@@ -1,0 +1,4 @@
+Dataset,Transactions,Legitimate,Fraudulent,Fraud Rate (%),Imbalance Ratio,Features,Missing Values
+ULB (2013),"284,807","284,315",492,0.173,577:1,31,0
+BAF NeurIPS (2022),"1,000,000","988,971","11,029",1.103,89:1,32,0
+Synthetic (Kaggle),"5,000,000","4,820,447","179,553",3.591,26:1,18,"5,716,960"

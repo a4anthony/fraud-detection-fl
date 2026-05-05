@@ -1,0 +1,7 @@
+Parameter,Value
+XGBoost n_estimators,300
+XGBoost max_depth,5
+XGBoost learning_rate,0.2028
+XGBoost subsample,0.953
+Random Forest n_estimators,282
+Random Forest max_depth,27

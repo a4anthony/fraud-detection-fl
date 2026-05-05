@@ -1,0 +1,6 @@
+Configuration,AUPRC,F1-Score,Recall,Latency (ms),Privacy,Explainable
+XGBoost,0.1325,0.1876,0.1605,0.493,No,Yes
+Random Forest,0.1145,0.1855,0.248,12.831,No,Yes
+XGB-RF Ensemble (Centralized),0.1296,0.198,0.2072,N/A,No,Yes
+XGB-RF Ensemble (GA-Optimized),0.1465,0.1161,0.0703,N/A,No,Yes
+XGB-RF Ensemble (Federated),0.1488,0.1253,0.0762,N/A,Yes,Yes

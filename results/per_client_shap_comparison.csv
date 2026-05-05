@@ -1,0 +1,11 @@
+Rank,ULB,BAF,Synthetic
+1,V14,housing_status,velocity_score
+2,V4,income,time_since_last_transaction
+3,V8,device_os,merchant_category
+4,V12,date_of_birth_distinct_emails_4w,location
+5,V1,customer_age,device_used
+6,V3,month,payment_channel
+7,V18,phone_home_valid,geo_anomaly_score
+8,V11,current_address_months_count,amount
+9,V22,keep_alive_session,transaction_type
+10,Time,payment_type,spending_deviation_score
