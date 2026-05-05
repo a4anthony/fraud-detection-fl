@@ -1,6 +1,6 @@
 # Explainable Federated Ensemble Learning for Real-Time Financial Fraud Detection
 
-MSc Thesis Project — COM748, Ulster University
+MSc Thesis Project, COM748, Ulster University
 
 **Author:** Anthony Akro
 
@@ -10,68 +10,78 @@ MSc Thesis Project — COM748, Ulster University
 
 This project implements a privacy-preserving fraud detection system that combines:
 
-- **XGBoost–Random Forest soft voting ensemble** for high detection accuracy
+- **XGBoost / Random Forest soft voting ensemble** for high detection accuracy
 - **Federated Learning** (Flower) so institutions collaborate without sharing raw data
 - **SHAP explainability** for transparent, auditable predictions
-- **Genetic Algorithm** hyperparameter optimization (DEAP)
+- **Genetic Algorithm** hyperparameter optimisation (DEAP)
 
-The system is evaluated across three real-world and synthetic datasets, targeting >95% AUPRC with sub-200ms inference latency.
+The system is evaluated across three real-world and synthetic datasets, targeting >95% AUPRC with sub-200 ms inference latency.
 
 ---
 
-## Project Structure
+## Repository Structure
+
+The repository has three top-level content folders: code, results, and figures.
 
 ```
 fraud-detection-fl/
-├── data/
-│   ├── raw/                        # Symlinks to original datasets
-│   ├── processed/                  # Cleaned, scaled, SMOTE-resampled splits
-│   └── federated/                  # Per-client partitioned data for FL
-├── notebooks/
-│   ├── 01_eda.ipynb                # Exploratory Data Analysis
-│   ├── 02_preprocessing.ipynb      # Cleaning, encoding, SMOTE, FL partitioning
-│   ├── 03_centralized_baselines.ipynb  # LR, RF, XGBoost, ensemble training
-│   ├── 04_ensemble_training.ipynb  # GA hyperparameter optimization
-│   ├── 05_federated_learning.ipynb # Flower FL simulation (10 rounds, 3 clients)
-│   ├── 06_explainability.ipynb     # SHAP global/local explanations
-│   ├── 07_latency_benchmarking.ipynb   # Inference time profiling
-│   ├── 08_final_comparison.ipynb   # PR/ROC curves, ablation study, final tables
-│   └── 09_diagrams.ipynb          # Architecture, flowcharts, Gantt, risk matrix
-├── src/
-│   ├── data/
-│   │   ├── preprocess.py           # Cleaning, encoding, scaling, SMOTE pipeline
-│   │   └── partition.py            # FL client data partitioning (IID, non-IID, natural)
-│   ├── models/
-│   │   ├── baselines.py            # LR, RF, XGBoost, XGB-RF ensemble training + CV
-│   │   └── ga_optimizer.py         # Genetic Algorithm (DEAP) for ensemble tuning
-│   ├── federated/
-│   │   ├── client.py               # Flower NumPyClient for XGB-RF ensemble
-│   │   ├── server.py               # Flower server + FedAvg strategy
-│   │   └── utils.py                # Aggregation helpers, communication cost tracking
-│   ├── explainability/
-│   │   └── shap_analysis.py        # SHAP summary, bar, waterfall, force, dependence
-│   └── evaluation/
-│       ├── metrics.py              # AUPRC, F1, ROC-AUC, confusion matrix, PR/ROC curves
-│       ├── latency.py              # Per-transaction inference benchmarking
-│       └── comparison.py           # Final comparison tables, ablation study
-├── outputs/
-│   ├── figures/                    # All generated plots (39 visuals)
-│   ├── tables/                     # CSV result tables
-│   └── models/                     # Serialized trained models (.joblib)
-├── requirements.txt
+├── source-code/              # All code (notebooks, modules, scripts)
+│   ├── notebooks/            # 9 Jupyter notebooks, the executable pipeline
+│   │   ├── 01_eda.ipynb                  # Exploratory data analysis
+│   │   ├── 02_preprocessing.ipynb        # Cleaning, encoding, SMOTE, FL partitioning
+│   │   ├── 03_centralized_baselines.ipynb  # LR, RF, XGBoost, ensemble training
+│   │   ├── 04_ensemble_training.ipynb    # GA hyperparameter optimisation
+│   │   ├── 05_federated_learning.ipynb   # Flower FL simulation (10 rounds, 3 clients)
+│   │   ├── 06_explainability.ipynb       # SHAP global / local explanations
+│   │   ├── 07_latency_benchmarking.ipynb # Inference time profiling
+│   │   ├── 08_final_comparison.ipynb     # PR / ROC curves, ablation, final tables
+│   │   └── 09_diagrams.ipynb             # Architecture, flowcharts, Gantt, risk matrix
+│   ├── src/                  # Reusable modules
+│   │   ├── data/             # preprocess.py, partition.py
+│   │   ├── models/           # baselines.py, ga_optimizer.py
+│   │   ├── federated/        # client.py, server.py, utils.py
+│   │   ├── explainability/   # shap_analysis.py
+│   │   └── evaluation/       # metrics.py, latency.py, comparison.py
+│   ├── docs/                 # Methodology notes
+│   │   ├── feature_categories.md
+│   │   └── fraudx_ai_methodology_notes.md
+│   ├── *.py                  # 10 top-level scripts (see "Scripts" below)
+│   └── requirements.txt      # Pinned Python dependencies
+├── results/                  # 22 CSVs and JSONs of experimental results
+├── figures/                  # 58 PNG figures generated by the pipeline
 ├── README.md
 └── .gitignore
 ```
+
+Datasets, processed splits, and trained model files are not tracked: see "Datasets" and "Reproducing the experiments" below for how to obtain or regenerate them.
+
+### Scripts
+
+The top-level `.py` files in `source-code/` are runnable utilities used outside the notebooks.
+
+| Script | Purpose |
+|---|---|
+| `federated_class_weighted.py` | Class-weighted FL training loop |
+| `retrain_weighted.py` | Retrain final models with class weighting |
+| `run_ablation.py` | Ablation study (centralised vs FL, single vs ensemble) |
+| `optimise_threshold.py` | Threshold sweep against operating-point targets |
+| `run_shap_categorised.py` / `run_shap_per_client.py` | Per-client SHAP attribution |
+| `match_fraudx_ai.py` | Reproduces the FraudX-AI baseline for head-to-head comparison |
+| `make_comparison_figure.py` | Renders the FraudX-AI comparison figure |
+| `regenerate_results.py` | Re-runs evaluation to refresh `results/` |
+| `predict_example.py` | Loads a saved model and runs a single inference example |
 
 ---
 
 ## Datasets
 
+The three datasets together exceed 1 GB and are publicly available. They are not redistributed in this repo.
+
 | Dataset | Transactions | Fraud Rate | Features | Source |
-|---------|-------------|------------|----------|--------|
-| ULB Credit Card (2013) | 284,807 | 0.17% | 31 (PCA-anonymized) | [Kaggle / Zenodo](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) |
-| BAF NeurIPS (2022) | 1,000,000 | 1.10% | 32 (interpretable) | [Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022) |
-| Synthetic Financial (Kaggle) | 5,000,000 | 3.59% | 18 (categorical-rich) | [Kaggle](https://www.kaggle.com/datasets/aryan208/financial-transactions-dataset-for-fraud-detection) |
+|---|---|---|---|---|
+| ULB Credit Card (2013) | 284,807 | 0.17% | 31 (PCA-anonymised) | https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud |
+| BAF NeurIPS (2022) | 1,000,000 | 1.10% | 32 (interpretable) | https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022 |
+| Synthetic Financial (Kaggle) | 5,000,000 | 3.59% | 18 (categorical-rich) | https://www.kaggle.com/datasets/aryan208/financial-transactions-dataset-for-fraud-detection |
 
 Each dataset represents a different financial institution in the federated learning simulation.
 
@@ -80,51 +90,40 @@ Each dataset represents a different financial institution in the federated learn
 ## Setup
 
 ```bash
-# Create and activate virtual environment
+cd source-code
 python3 -m venv venv
 source venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Place raw datasets in data/raw/
-#   data/raw/ulb_creditcard.csv
-#   data/raw/baf_base.csv
-#   data/raw/synthetic_fraud.csv
 ```
+
+Place the raw datasets in `source-code/data/raw/` (this folder is gitignored):
+
+- `data/raw/ulb_creditcard.csv`
+- `data/raw/baf_base.csv`
+- `data/raw/synthetic_fraud.csv`
 
 ---
 
-## Execution Order
+## Reproducing the experiments
 
-Notebooks must be run sequentially — each depends on outputs from previous steps.
+Notebooks must be run sequentially: each depends on outputs from the previous step.
 
 ```
-01_eda.ipynb                    ← already run (EDA figures)
-    ↓
-02_preprocessing.ipynb          ← produces data/processed/ and data/federated/
-    ↓
-03_centralized_baselines.ipynb  ← trains LR, RF, XGBoost, ensemble → outputs/models/
-    ↓
-04_ensemble_training.ipynb      ← GA optimization → ga_optimized_ensemble.joblib
-    ↓
-05_federated_learning.ipynb     ← FL simulation → fl_global_xgb.joblib, fl_global_rf.joblib
-    ↓
-06_explainability.ipynb         ← SHAP plots for XGBoost and RF
-    ↓
-07_latency_benchmarking.ipynb   ← inference time profiling for all models
-    ↓
-08_final_comparison.ipynb       ← PR/ROC curves, confusion matrices, ablation study
-    ↓
-09_diagrams.ipynb               ← architecture diagrams, Gantt, risk matrix, etc.
+01_eda.ipynb                    -> EDA figures
+02_preprocessing.ipynb          -> data/processed/ and data/federated/
+03_centralized_baselines.ipynb  -> trains LR, RF, XGBoost, ensemble
+04_ensemble_training.ipynb      -> GA optimisation
+05_federated_learning.ipynb     -> FL simulation
+06_explainability.ipynb         -> SHAP plots
+07_latency_benchmarking.ipynb   -> inference time profiling
+08_final_comparison.ipynb       -> PR / ROC curves, ablation, final tables
+09_diagrams.ipynb               -> architecture, Gantt, risk matrix, etc.
 ```
 
-### Automated Execution
-
-To run all notebooks sequentially without opening Jupyter:
+Run all notebooks in order without opening Jupyter:
 
 ```bash
-# Run all notebooks in order (outputs saved in-place)
+cd source-code
 for nb in notebooks/0{1,2,3,4,5,6,7,8,9}_*.ipynb; do
     echo "Running $nb..."
     jupyter nbconvert --to notebook --execute --inplace \
@@ -136,54 +135,52 @@ Or run a single notebook:
 
 ```bash
 jupyter nbconvert --to notebook --execute --inplace \
-    --ExecutePreprocessor.timeout=3600 notebooks/05_federated_learning.ipynb
+    --ExecutePreprocessor.timeout=3600 source-code/notebooks/05_federated_learning.ipynb
 ```
 
-> **Note:** Some notebooks (especially 04 and 05) may take 30+ minutes due to GA optimization and FL training on large datasets. The `--timeout=3600` flag allows up to 1 hour per cell.
+> Notebooks 04 (GA optimisation) and 05 (FL training) take 30+ minutes each on a modern laptop. The `--timeout=3600` flag allows up to 1 hour per cell.
 
 ---
 
-## Key Results (Generated)
+## Results (`results/`)
 
-### Tables (`outputs/tables/`)
 | File | Description |
-|------|-------------|
-| `dataset_summary.csv` | Dataset statistics and imbalance ratios |
-| `feature_comparison.csv` | Feature type comparison across datasets |
-| `baseline_test_results.csv` | Centralized model test set metrics |
-| `ga_best_params.csv` | GA-optimized hyperparameters |
-| `fl_round_metrics.csv` | Per-round FL convergence metrics |
+|---|---|
+| `final_comparison.csv` | Master table: every model x every metric |
+| `baseline_test_results.csv` | Centralised LR / RF / XGBoost / ensemble metrics |
+| `ga_best_params.csv` | GA-optimised hyperparameters |
+| `fl_round_metrics.csv`, `federated_class_weighted_round_log.csv` | Per-round FL convergence |
 | `latency_results.csv` | Inference latency (mean, P95, P99) per model |
-| `final_comparison.csv` | Master comparison: all models, all metrics |
-| `ablation_study.csv` | Ablation: centralized vs FL, single vs ensemble |
+| `ablation_study.csv`, `ablation_results.csv`, `ablation_auprc_pivot.csv` | Ablation tables |
+| `per_client_shap_*.csv` | Per-client SHAP feature rankings |
+| `fraudx_ai_matched.csv` + `_meta.json` | Head-to-head reproduction against FraudX-AI baseline |
 | `regulatory_compliance_mapping.csv` | GDPR / EU AI Act / PCI-DSS mapping |
+| `threshold_analysis.csv`, `weighted_vs_unweighted.csv`, `dataset_summary.csv`, `feature_comparison.csv`, `per_dataset_results*.csv` | Supporting tables |
 
-### Figures (`outputs/figures/`) — 39 Visuals
+---
 
-**EDA (V1–V6):** Class distributions, amount distributions, correlation heatmaps, temporal patterns, top features
+## Figures (`figures/`)
 
-**Preprocessing (V7–V9):** SMOTE before/after, FL client distribution
+58 figures produced by the pipeline.
 
-**Baselines (V10–V13):** AUPRC comparison, CV box plot, GA convergence, GA params
-
-**Federated Learning (V14–V18):** FL convergence, local vs global, communication cost, FL vs centralized
-
-**Explainability (V19–V23):** SHAP summary, bar, waterfall, force, dependence plots
-
-**Evaluation (V24–V30):** Confusion matrices, PR curves, ROC curves, latency box plot, latency histogram, final comparison, ablation chart
-
-**Diagrams (V31–V38):** System architecture, FL architecture, methodology flowchart, Gantt chart, risk matrix, compliance mapping, ensemble diagram, SMOTE illustration
+- **EDA (V1-V6):** Class distributions, amount distributions, correlation heatmaps, temporal patterns, top features
+- **Preprocessing (V7-V9):** SMOTE before / after, FL client distribution
+- **Baselines (V10-V13):** AUPRC comparison, CV box plot, GA convergence, GA params
+- **Federated Learning (V14-V18):** FL convergence, local vs global, communication cost, FL vs centralised
+- **Explainability (V19-V23):** SHAP summary, bar, waterfall, dependence plots
+- **Evaluation (V24-V30):** Confusion matrices, PR curves, ROC curves, latency box plot, latency histogram, final comparison, ablation chart
+- **Diagrams (V31-V38):** System architecture, FL architecture, methodology flowchart, Gantt chart, risk matrix, compliance mapping, ensemble diagram, SMOTE illustration
 
 ---
 
 ## Methodology
 
-1. **Preprocessing:** StandardScaler normalization, label encoding for categoricals, SMOTE oversampling on training splits only
+1. **Preprocessing:** StandardScaler normalisation, label encoding for categoricals, SMOTE oversampling on training splits only
 2. **Baselines:** Logistic Regression, Random Forest, XGBoost, and XGB-RF soft voting ensemble with 5-fold stratified CV
-3. **GA Optimization:** DEAP evolutionary search over 6 hyperparameters (30 generations, population 20)
+3. **GA Optimisation:** DEAP evolutionary search over 6 hyperparameters (30 generations, population 20)
 4. **Federated Learning:** 3 clients (one per dataset), 10 communication rounds, best-model aggregation for tree-based ensembles
 5. **Explainability:** SHAP TreeExplainer on BAF dataset (interpretable features: income, age, credit_risk_score, velocity)
-6. **Evaluation:** AUPRC (primary), F1, ROC-AUC, precision, recall, FPR, confusion matrices, latency profiling against 200ms target
+6. **Evaluation:** AUPRC (primary), F1, ROC-AUC, precision, recall, FPR, confusion matrices, latency profiling against 200 ms target
 
 ---
 
@@ -195,29 +192,13 @@ jupyter nbconvert --to notebook --execute --inplace \
 - shap (explainability)
 - flwr (Flower federated learning)
 - deap (genetic algorithm)
-- matplotlib, seaborn (visualization)
+- matplotlib, seaborn (visualisation)
 - jupyter
 
-See `requirements.txt` for pinned minimum versions.
+See `source-code/requirements.txt` for pinned versions.
 
 ---
 
 ## License
 
-Academic use — Ulster University COM748 thesis project.
-
----
-
-## Repository contents
-
-This GitHub repository mirrors the code, experimental results, and figures from my MSc thesis supporting-material submission.
-
-| Folder | What's in it |
-|---|---|
-| `src/`, `notebooks/`, root `*.py` scripts | All source code: data prep, modelling, GA, federated learning, SHAP, evaluation |
-| `results/` | Curated experimental results (CSV / JSON) referenced in the paper |
-| `figures/` | 58 figures generated by the pipeline (EDA, SHAP, FL convergence, confusion matrices, architecture diagrams, etc.) |
-| `docs/` | Methodology notes |
-| `requirements.txt` | Pinned Python dependencies |
-
-Datasets are **not** included; download links are listed above. Trained model `.joblib` files are also excluded by `.gitignore` (they are large and reproducible from the seeded notebooks).
+Academic use, Ulster University COM748 thesis project.
